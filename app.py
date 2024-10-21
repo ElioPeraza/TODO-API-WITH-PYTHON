@@ -40,27 +40,26 @@ def add_todos():
     if not body:
         return jsonify({"error":"la solicitud es nula"}),400
     if 'label' not in body:
-        return 'Debes especificar label', 400
+        return jsonify({"error":"Debe especificar el label"}),400
     if 'done' not in body:
-        return 'Debes especificar done', 400
+        return jsonify({"error":"Debe especificar el done"}),400,
     
     new_todo = {
         "done": body['done'],
         "label": body['label']
     }
     todo_list.append(new_todo)
-    return jsonify(new_todo), 201 
+    return jsonify(todo_list), 201 
 
 @app.route("/todos/<position>", methods=['Delete'])
 
 def delete_todo(position):
     todo_list.pop(int(position))
-    return jsonify({"message":"Tarea eliminada exitosamente"}), 200
+    return jsonify({"message": "Tarea fue eleminada con exito", "todos": todo_list}), 200
+    
+    
     
     
         
-
-    
-
 
 app.run(host='0.0.0.0')
